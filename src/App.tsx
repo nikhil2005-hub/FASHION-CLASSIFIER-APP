@@ -23,13 +23,20 @@ export default function App() {
     formData.append("file", file);
 
     const res = await fetch(API_URL, {
-      method: "POST",
-      body: formData,
-    });
+  method: "POST",
+  body: formData,
+});
 
-    const data = await res.json();
-    setPredictions(data.predictions);
-    setLoading(false);
+if (!res.ok) {
+  throw new Error("Server error");
+}
+
+const data = await res.json();
+
+console.log(data); // debug
+
+setPredictions(data.predictions);
+setLoading(false);
   };
 
   return (
