@@ -1,10 +1,11 @@
-
 import React, { useState, ChangeEvent } from "react";
 
 type Prediction = {
   class: string;
   confidence: number;
 };
+
+const API_URL = "https://fashion-classifier-backend.onrender.com/predict";
 
 export default function App() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -21,7 +22,7 @@ export default function App() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("/predict", {
+    const res = await fetch(API_URL, {
       method: "POST",
       body: formData,
     });
@@ -49,6 +50,7 @@ export default function App() {
             {predictions.map((p, index) => (
               <div key={index} style={styles.resultItem}>
                 <strong>{p.class}</strong>
+
                 <div style={styles.progressBar}>
                   <div
                     style={{
@@ -57,6 +59,7 @@ export default function App() {
                     }}
                   />
                 </div>
+
                 <span>{(p.confidence * 100).toFixed(2)}%</span>
               </div>
             ))}
@@ -83,7 +86,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: "400px",
     boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
     textAlign: "center",
-    transition: "0.3s",
   },
   title: {
     marginBottom: "20px",
