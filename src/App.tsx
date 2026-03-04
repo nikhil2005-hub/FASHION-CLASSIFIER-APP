@@ -5,7 +5,8 @@ type Prediction = {
   confidence: number;
 };
 
-const API_URL ="https://nikhilkorada2005-fashion-image-classifier.hf.space/predict";
+const API_URL =
+"https://nikhilkorada2005-fashion-image-classifier.hf.space/predict";
 
 export default function App() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
